@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return view('users.index', compact('users'));
+        return view('users.index', ['users' => $users]);
     }
 
     public function edit(User $user): View
@@ -24,7 +24,7 @@ class UserController extends Controller
     public function update(Request $request, User $user): RedirectResponse
     {
         $request->validate([
-            
+
         ]);
 
         $user->update($request->all());

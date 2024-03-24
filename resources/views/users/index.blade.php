@@ -29,7 +29,7 @@
                 <td>{{ $user->phone }}</td>
                 <td>{{ $user->licence_number }}</td>
                 <td>{{ $user->golf_index }}</td>
-                <td>{{ $user->is_federal_pass_active == 0 ? 'Non' : 'Oui' }}</td>
+                <td>{{ $user->is_federal_pass_active === true ? 'Oui' : 'Non' }}</td>
                 <td>
                   <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Modifier</a>
                   <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline">

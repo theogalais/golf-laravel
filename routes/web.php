@@ -19,18 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/users/{user}/', [UserController::class, 'destroy'])->name('users.destroy');
+
+Route::resource('users', UserController::class);
 
 Route::prefix('/users/{user}')->group(function () {
-    Route::get('/calibrations', [CalibrationController::class, 'index'])->name('calibrations.index');
-    Route::get('/calibrations/create', [CalibrationController::class, 'create'])->name('calibrations.create');
-    Route::post('/calibrations', [CalibrationController::class, 'store'])->name('calibrations.store');
-    Route::get('/calibrations/{calibration}/edit', [CalibrationController::class, 'edit'])->name('calibrations.edit');
-    Route::put('/calibrations/{calibration}', [CalibrationController::class, 'update'])->name('calibrations.update');
-    Route::delete('/calibrations/{calibration}', [CalibrationController::class, 'destroy'])->name('calibrations.destroy');
+    Route::resource('calibrations', CalibrationController::class);
 });
 
 

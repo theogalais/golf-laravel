@@ -11,17 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('calibrations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('calibrations', function (Blueprint $table) {
+            $table->unsignedInteger('distance')->change();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('calibrations');
     }
 };

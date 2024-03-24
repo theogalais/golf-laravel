@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Calibrations\CreateCalibrationRequest;
 use Illuminate\View\View;
 use App\Models\Calibration;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class CalibrationController extends Controller
 {
@@ -27,24 +29,20 @@ class CalibrationController extends Controller
      */
     public function create()
     {
-        $calibration = new Calibration();
-
-        return view('calibrations.create', compact('calibration'));
+        return view('calibrations.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CreateCalibrationRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'distance' => 'required|string|max:255'
-        ]);
+        $validated = $request->validated();
+        $user = Auth::user();
 
-        $request->user()->calibrations()->create($validated);
+        $user->calibrations()->create($validated);
 
-        return redirect(route('calibrations.index'));
+        return redirect(route('calibrations.index', $user->id));
     }
 
     /**
